@@ -1,0 +1,107 @@
+.kolom {
+  margin: 0 5pt;
+}
+
+.kolomSearch {
+  font-size: 12px;
+  padding: 0;
+  margin: 5px 0;
+}
+
+[aria-expanded="false"] > .expanded,
+[aria-expanded="true"] > .collapsed {
+  display: none;
+}
+
+#dropdownMenuButton1 {
+  width: 210px;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(60, 60, 60, 1) !important;
+  border-color: rgba(60, 60, 60, 1) !important;
+}
+
+#dropdownMenuButton1:hover {
+  background-color: rgb(219, 255, 219);
+  color: green !important;
+  border-color: green !important;
+}
+
+.expanded,
+.collapsed {
+  font-size: 20px;
+}
+
+.dropdown-menu {
+  width: 210px;
+}
+
+.dropdown-item {
+  font-size: 12px;
+}
+
+.form-control {
+  width: 210px;
+  height: 34px;
+}
+
+.MuiInputLabel-outlined {
+  transform: translate(12px, 8px) scale(0.75) !important;
+}
+
+.ant-picker {
+  max-width: 193.417px;
+  min-width: 193.417px;
+}
+
+.ant-picker:hover,
+.ant-picker-focused {
+  border-color: #5cb85f !important;
+  border-right-width: 1px;
+}
+
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+  border-color: #5cb85f !important;
+  border-right-width: 1px;
+}
+
+.ant-picker-cell {
+  border-color: #5cb85f !important;
+}
+
+.btn-utama {
+  background-color: #5cb85f;
+  color: #fff;
+  padding: 5px 9px;
+  border: none;
+  border-radius: 2px;
+}
+
+label, 
+.col-lg{
+  display: block;
+}
+
+#inputPenumpang, .ant-input-affix-wrapper{
+  max-width: 100% !important;
+}
+
+#inputPenumpang:hover, .ant-input-affix-wrapper:hover{
+  border-color: #5cb85f !important;
+}
+
+/* .tombolHijau{
+  background-color: #5cb85f;
+  border-radius: 2px;
+  border-color: #5cb85f;
+  box-shadow: none;
+} */
+
+/* input,
+label, 
+#selectSopir,
+#selectDate,
+#selectWaktu {
+  display: flex;
+  flex-direction: row;
+} */
