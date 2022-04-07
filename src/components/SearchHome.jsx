@@ -22,8 +22,12 @@ function SearchHome() {
 
   const [dataList, setDataList] = useState([]);
 
+  const [showDetail, setShowDetail] = useState(false);
+  const [dataDetail, setDataDetail] = useState({});
+
   const handleData = async (e) => {
     setDataList([]);
+    setShowDetail(false);
 
     e.preventDefault();
     try {
@@ -31,6 +35,18 @@ function SearchHome() {
         "https://rent-cars-api.herokuapp.com/customer/car"
       );
       setDataList(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDetail = async (id) => {
+    setShowDetail(true);
+    try {
+      const res = await axios(
+        `https://rent-cars-api.herokuapp.com/customer/car/${id}`
+      );
+      setDataDetail(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -127,6 +143,61 @@ function SearchHome() {
       </form>
       <div className="container sectionDataList">
         <div className="row d-flex">
+          {/* {showDetail ? (
+            <div>
+              ini datamobil
+              <h3>{dataDetail.name}</h3>
+              <h3>{dataDetail.category}</h3>
+              <h3>{dataDetail.price}</h3>
+            </div>
+          ) : (
+            dataList?.map((item) => {
+              return (
+                <div className="col-lg-4 flex-row my-2">
+                  <div className="card h-100" key={item.id}>
+                    <div className="card-body">
+                      <h5 className="card-title justify-content-center">
+                        <img
+                          src={item.image}
+                          alt="img-car"
+                          style={{
+                            minWidth: 270,
+                            maxWidth: "100%",
+                            justifyContent: "center",
+                          }}
+                        />
+                      </h5>
+                      <p>{item.name}</p>
+                      <h6>{item.price}/hari</h6>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                      </p>
+                      <p className="card-text">
+                        <TeamOutlined /> 4 Orang
+                      </p>
+                      <p className="card-text">
+                        <SettingOutlined /> Manual
+                      </p>
+                      <p className="card-text">
+                        <CalendarOutlined /> Tahun 2020
+                      </p>
+
+                      <button
+                        onClick={() => handleDetail(item.id)}
+                        type="button"
+                        className="btn btn-success w-100"
+                      >
+                        Pilih Mobil
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )} */}
+
           {dataList?.map((item) => {
             return (
               <div className="col-lg-4 flex-row my-2">
@@ -136,7 +207,11 @@ function SearchHome() {
                       <img
                         src={item.image}
                         alt="img-car"
-                        style={{ minWidth: 270, maxWidth: "100%", justifyContent: "center" }}
+                        style={{
+                          minWidth: 270,
+                          maxWidth: "100%",
+                          justifyContent: "center",
+                        }}
                       />
                     </h5>
                     <p>{item.name}</p>
@@ -156,7 +231,11 @@ function SearchHome() {
                       <CalendarOutlined /> Tahun 2020
                     </p>
 
-                    <button type="button" className="btn btn-success w-100">
+                    <button
+                      // onClick={() => handleDetail(item.id)}
+                      type="button"
+                      className="btn btn-success w-100"
+                    >
                       Pilih Mobil
                     </button>
                   </div>
