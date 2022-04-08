@@ -171,7 +171,7 @@ function CarList() {
                     <button
                       onClick={navigateDetail}
                       type="button"
-                      className="btn btn-success w-100"
+                      className="btn-utama w-100"
                       value={item.id}
                     >
                       Pilih Mobil
