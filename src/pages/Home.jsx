@@ -1,5 +1,5 @@
 import React from "react";
-// import Footer from "../components/Footer";
+import Footer from "../components/Footer";
 // import Header from "../components/Header";
 import SearchHome from "../components/SearchHome";  
 import "./Home.css"
@@ -41,6 +41,7 @@ function Home() {
         </div>
       </div>
       <SearchHome />
+      <Footer />
     </>
   );
 }

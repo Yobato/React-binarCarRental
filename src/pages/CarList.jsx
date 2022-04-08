@@ -1,46 +1,58 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "./CarList.css";
 import {
   ClockCircleOutlined,
   TeamOutlined,
   SettingOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
-import "./CarDetail.css";
-import axios from "axios";
 
 import { Input, Select } from "antd";
 import { DatePicker, Space } from "antd";
 import Footer from "../components/Footer";
 
-function CarDetail() {
+// import { Select } from "antd";
+
+function CarList() {
   const { Option } = Select;
-  const [dataDetail, setDataDetail] = useState({});
+  //   const { data } = useParams();
 
-  const { id } = useParams();
+  const [dataList, setDataList] = useState([]);
 
-  const HandleDetail = async (id) => {
+  const handleData = async () => {
+    // setDataList([]);
+
     try {
       const res = await axios(
-        `https://rent-cars-api.herokuapp.com/customer/car/${id}`
+        "https://rent-cars-api.herokuapp.com/customer/car"
       );
-      setDataDetail(res.data);
+      setDataList(res.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    HandleDetail(id);
-  });
+    handleData();
+  }, []);
+
+  let navigate = useNavigate();
+
+  const navigateDetail = (event) => {
+    const id = event.target.value;
+    navigate(`${id}`);
+  };
 
   var formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
   });
 
+  console.log(handleData());
   return (
-    <>
+    <div>
       <div
         className="biru"
         style={{ backgroundColor: "#f1f3ff", paddingBottom: "9.5rem" }}
@@ -52,6 +64,7 @@ function CarDetail() {
           ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
         </p>
       </div>
+
       <div className="Search p-3 " style={{ marginTop: "-4.5rem" }}>
         <div className="Container mx-auto" style={{ maxWidth: "80%" }}>
           <div className="card">
@@ -119,95 +132,60 @@ function CarDetail() {
           </div>
         </div>
       </div>
-      <div className="container my-auto mx-auto" style={{ marginTop: "20rem" }}>
-        <div className="row">
-          <div className="col-lg-8">
-            <div className="card">
-              <div className="card-body">
-                <h4>Tentang Paket</h4>
-                <h6>Include</h6>
-                <ul>
-                  <li>
-                    Apa saja yang termasuk dalam paket misal durasi max 12 jam
-                  </li>
-                  <li>Sudah termasuk bensin selama 12 jam</li>
-                  <li>Sudah termasuk Tiket Wisata</li>
-                  <li>Sudah termasuk pajak</li>
-                </ul>
-                <h6>Exclude</h6>
-                <ul>
-                  <li>Tidak termasuk biaya makan sopir Rp 75.000/hari</li>
-                  <li>
-                    Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp
-                    20.000/jam
-                  </li>
-                  <li>Tidak termasuk akomodasi penginapan</li>
-                </ul>
-                <h4>Refund, Reschedule, Overtime</h4>
-                <ul>
-                  <li>Tidak termasuk biaya makan sopir Rp 75.000/hari</li>
-                  <li>
-                    Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp
-                    20.000/jam
-                  </li>
-                  <li>Tidak termasuk akomodasi penginapan</li>
-                  <li>Tidak termasuk biaya makan sopir Rp 75.000/hari</li>
-                  <li>
-                    Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp
-                    20.000/jam
-                  </li>
-                  <li>Tidak termasuk akomodasi penginapan</li>
-                  <li>Tidak termasuk biaya makan sopir Rp 75.000/hari</li>
-                  <li>
-                    Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp
-                    20.000/jam
-                  </li>
-                  <li>Tidak termasuk akomodasi penginapan</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4">
-            <div className="card">
-              <div className="card-body">
-                <img
-                  src={dataDetail.image}
-                  alt="detail-Mobil"
-                  style={{
-                    minWidth: 270,
-                    maxWidth: "100%",
-                    justifyContent: "center",
-                  }}
-                />
-                <h4>{dataDetail.name}</h4>
-                <div className="row">
-                  <div className="col-sm-12 d-flex align-items-center">
-                    <TeamOutlined className="me-1" /> 4 Orang
-                    <SettingOutlined className="me-1 ms-2" /> Manual
-                    <CalendarOutlined className="me-1 ms-2" /> Tahun 2020
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-12 d-flex justify-content-between">
-                    <p>Total</p>
-                    <p>{formatter.format(dataDetail.price)}</p>
-                  </div>
-                </div>
 
-                <button className="btn-utama w-100">
-                  Lanjutkan Pembayaran
-                </button>
+      <div className="container sectionDataList">
+        <div className="row d-flex">
+          {dataList?.map((item) => {
+            return (
+              <div className="col-lg-4 flex-row my-2">
+                <div className="card h-100" key={item.id}>
+                  <div className="card-body">
+                    <h5 className="card-title justify-content-center">
+                      <img
+                        src={item.image}
+                        alt="img-car"
+                        style={{
+                          minWidth: 270,
+                          maxWidth: "100%",
+                          justifyContent: "center",
+                        }}
+                      />
+                    </h5>
+                    <p>{item.name}</p>
+                    <h6>{formatter.format(item.price)}/hari</h6>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+                    <p className="card-text">
+                      <TeamOutlined /> 4 Orang
+                    </p>
+                    <p className="card-text">
+                      <SettingOutlined /> Manual
+                    </p>
+                    <p className="card-text">
+                      <CalendarOutlined /> Tahun 2020
+                    </p>
+
+                    <button
+                      onClick={navigateDetail}
+                      type="button"
+                      className="btn btn-success w-100"
+                      value={item.id}
+                    >
+                      Pilih Mobil
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="next d-flex justify-content-center mt-3">
-          <button className="btn-utama">Lanjutkan Pembayaran</button>
+            );
+          })}
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 
-export default CarDetail;
+export default CarList;

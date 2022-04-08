@@ -1,0 +1,16 @@
+.buttonBiru {
+  text-decoration: none;
+  border: solid 2px #0d28a6;
+  color: #0d28a6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 32px;
+  border-radius: 2px;
+}
+
+.buttonBiru:hover {
+  color: white;
+  background-color: #0d28a6;
+}
