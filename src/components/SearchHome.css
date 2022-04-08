@@ -50,8 +50,11 @@
 }
 
 .ant-picker {
-  max-width: 193.417px;
-  min-width: 193.417px;
+  width: 100%;
+}
+
+.ant-space {
+  display: block !important;
 }
 
 .ant-picker:hover,
@@ -77,16 +80,17 @@
   border-radius: 2px;
 }
 
-label, 
-.col-lg{
+label,
+.col-lg {
   display: block;
 }
 
-#inputPenumpang, .ant-input-affix-wrapper{
+/* #inputPenumpang, .ant-input-affix-wrapper{
   max-width: 100% !important;
-}
+} */
 
-#inputPenumpang:hover, .ant-input-affix-wrapper:hover{
+#inputPenumpang:hover,
+.ant-input-affix-wrapper:hover {
   border-color: #5cb85f !important;
 }
 

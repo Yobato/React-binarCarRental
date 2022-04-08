@@ -12,26 +12,21 @@ import {
 import { Input, Select } from "antd";
 import { DatePicker, Space } from "antd";
 import axios from "axios";
-import CarDetail from "../pages/CarDetail";
-import { useParams, useNavigate } from "react-router-dom";
+// import CarDetail from "../pages/CarDetail";
+import { useNavigate } from "react-router-dom";
 
 function SearchHome() {
-  const { id } = useParams();
   const { Option } = Select;
 
-  const [supir, setSupir] = useState("");
-
   const [waktu, setWaktu] = useState("");
+  const handleChangeWaktu = (event) => {
+    setWaktu(event.target.value);
+  };
 
   const [dataList, setDataList] = useState([]);
-  const [dataDetail, setDataDetail] = useState({});
-
-  const [showDetail, setShowDetail] = useState(false);
-  // const [dataDetail, setDataDetail] = useState({});
 
   const handleData = async (e) => {
     setDataList([]);
-    setShowDetail(false);
 
     e.preventDefault();
     try {
@@ -46,40 +41,19 @@ function SearchHome() {
 
   let navigate = useNavigate();
 
-  
-
   const navigateDetail = (event) => {
     const id = event.target.value;
     navigate(`Search/${id}`);
   };
 
-  // useEffect(() => {
-  //   HandleDetail(id);
-  // });
-
-  // const handleDetail = async (id) => {
-  //   setShowDetail(true);
-  //   try {
-  //     const res = await axios(
-  //       `https://rent-cars-api.herokuapp.com/customer/car/${id}`
-  //     );
-  //     setDataDetail(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const handleChangeWaktu = (event) => {
-    setWaktu(event.target.value);
+  const onChange = (date, dateString) => {
+    console.log(date, dateString);
   };
 
-  const handleChange = (event) => {
-    setSupir(event.target.value);
-  };
-
-  const onChange = (event) => {
-    setSupir(event.target.value);
-  };
+  var formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
 
   return (
     <>
@@ -94,29 +68,27 @@ function SearchHome() {
                       <div className="col-lg-3">
                         <label for="selectSopir">Pilih Sopir</label>
                         <Select
-                          //   defaultValue={supir}
                           placeholder="Pilih Sopir"
                           style={{ minWidth: "100%", maxWidth: "100%" }}
-                          onChange={handleChange}
                           id="selectSopir"
                         >
                           <Option value={"Dengan Sopir"}>Dengan Sopir</Option>
                           <Option value={"Tanpa Sopir"}>
                             Tanpa Sopir (Lepas Kunci)
                           </Option>
-                          {/* <Option value="Yiminghe">yiminghe</Option> */}
                         </Select>
                       </div>
                       <div className="col-lg-3">
                         <label for="selectDate">Pilih Tanggal</label>
                         <Space direction="vertical" id="selectDate">
-                          <DatePicker onChange={onChange} />
+                          <DatePicker
+                            onChange={onChange}
+                          />
                         </Space>
                       </div>
                       <div className="col-lg-3">
                         <label for="selectWaktu">Waktu Jemput/Ambil</label>
                         <Select
-                          //   defaultValue={supir}
                           placeholder="Pilih Waktu"
                           style={{ minWidth: "100%", maxWidth: "100%" }}
                           onChange={handleChangeWaktu}
@@ -128,7 +100,6 @@ function SearchHome() {
                           <Option value={"10.00 WIB"}>10.00 WIB</Option>
                           <Option value={"11.00 WIB"}>11.00 WIB</Option>
                           <Option value={"12.00 WIB"}>12.00 WIB</Option>
-                          {/* <Option value="Yiminghe">yiminghe</Option> */}
                         </Select>
                       </div>
                       <div className="col-lg-3">
@@ -160,63 +131,7 @@ function SearchHome() {
       </form>
       <div className="container sectionDataList">
         <div className="row d-flex">
-          {showDetail ? (
-            <div>
-              <CarDetail
-                gambar={dataDetail.image}
-                namaMobil={dataDetail.name}
-              />
-            </div>
-          ) : (
-            dataList?.map((item) => {
-              return (
-                <div className="col-lg-4 flex-row my-2">
-                  <div className="card h-100" key={item.id}>
-                    <div className="card-body">
-                      <h5 className="card-title justify-content-center">
-                        <img
-                          src={item.image}
-                          alt="img-car"
-                          style={{
-                            minWidth: 270,
-                            maxWidth: "100%",
-                            justifyContent: "center",
-                          }}
-                        />
-                      </h5>
-                      <p>{item.name}</p>
-                      <h6>{item.price}/hari</h6>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                      </p>
-                      <p className="card-text">
-                        <TeamOutlined /> 4 Orang
-                      </p>
-                      <p className="card-text">
-                        <SettingOutlined /> Manual
-                      </p>
-                      <p className="card-text">
-                        <CalendarOutlined /> Tahun 2020
-                      </p>
-
-                      <button
-                        onClick={navigateDetail}
-                        type="button"
-                        className="btn btn-success w-100"
-                        value={item.id}
-                      >
-                        Pilih Mobil
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })
-          )}
-
-          {/* {dataList?.map((item) => {
+          {dataList?.map((item) => {
             return (
               <div className="col-lg-4 flex-row my-2">
                 <div className="card h-100" key={item.id}>
@@ -233,7 +148,7 @@ function SearchHome() {
                       />
                     </h5>
                     <p>{item.name}</p>
-                    <h6>{item.price}/hari</h6>
+                    <h6>{formatter.format(item.price)}/hari</h6>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -250,9 +165,10 @@ function SearchHome() {
                     </p>
 
                     <button
-                      // onClick={() => handleDetail(item.id)}
+                      onClick={navigateDetail}
                       type="button"
                       className="btn btn-success w-100"
+                      value={item.id}
                     >
                       Pilih Mobil
                     </button>
@@ -260,7 +176,7 @@ function SearchHome() {
                 </div>
               </div>
             );
-          })} */}
+          })}
         </div>
       </div>
     </>

@@ -1,13 +1,12 @@
 import React from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+// import Footer from "../components/Footer";
+// import Header from "../components/Header";
 import SearchHome from "../components/SearchHome";  
 import "./Home.css"
 
 function Home() {
   return (
     <>
-      <Header />
       <div id="halaman-1" className="halaman-1">
         <div className="container-fluid pt-5">
           <div className="row d-flex align-items-center mt-5">
@@ -42,7 +41,6 @@ function Home() {
         </div>
       </div>
       <SearchHome />
-      <Footer />
     </>
   );
 }

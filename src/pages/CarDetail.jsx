@@ -8,20 +8,13 @@ import {
 import "./CarDetail.css";
 import SearchHome from "../components/SearchHome";
 import axios from "axios";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
-function CarDetail(props) {
-  // const [showDetail, setShowDetail] = useState(false);
-
-  const [showDetail, setShowDetail] = useState(false);
+function CarDetail() {
   const [dataDetail, setDataDetail] = useState({});
 
   const { id } = useParams();
 
   const HandleDetail = async (id) => {
-    setShowDetail(true);
-
     try {
       const res = await axios(
         `https://rent-cars-api.herokuapp.com/customer/car/${id}`
@@ -36,12 +29,14 @@ function CarDetail(props) {
     HandleDetail(id);
   });
 
+  var formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+
   return (
     <>
-      {/* <h2>Params id: {id}</h2> */}
-      {/* <SearchHome/> */}
-      <Header />
-      <SearchHome style={{ marginTop: "20rem" }} />
+      <SearchHome />
       <div className="container my-auto mx-auto" style={{ marginTop: "20rem" }}>
         <div className="row">
           <div className="col-lg-8">
@@ -113,7 +108,7 @@ function CarDetail(props) {
                 <div className="row">
                   <div className="col-lg-12 d-flex justify-content-between">
                     <p>Total</p>
-                    <p>Rp 430.000</p>
+                    <p>{formatter.format(dataDetail.price)}</p>
                   </div>
                 </div>
 
@@ -128,7 +123,6 @@ function CarDetail(props) {
           <button className="btn-utama">Lanjutkan Pembayaran</button>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
