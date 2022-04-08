@@ -1,15 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   TeamOutlined,
   SettingOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
 import "./CarDetail.css";
+import SearchHome from "../components/SearchHome";
+import axios from "axios";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-function CarDetail() {
+function CarDetail(props) {
+  // const [showDetail, setShowDetail] = useState(false);
+
+  const [showDetail, setShowDetail] = useState(false);
+  const [dataDetail, setDataDetail] = useState({});
+
+  const { id } = useParams();
+
+  const HandleDetail = async (id) => {
+    setShowDetail(true);
+
+    try {
+      const res = await axios(
+        `https://rent-cars-api.herokuapp.com/customer/car/${id}`
+      );
+      setDataDetail(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    HandleDetail(id);
+  });
+
   return (
     <>
-      <div className="container">
+      {/* <h2>Params id: {id}</h2> */}
+      {/* <SearchHome/> */}
+      <Header />
+      <SearchHome style={{ marginTop: "20rem" }} />
+      <div className="container my-auto mx-auto" style={{ marginTop: "20rem" }}>
         <div className="row">
           <div className="col-lg-8">
             <div className="card">
@@ -60,8 +93,16 @@ function CarDetail() {
           <div className="col-lg-4">
             <div className="card">
               <div className="card-body">
-                <img alt="detail-Mobil" />
-                <h4>Nama/Tipe Mobil</h4>
+                <img
+                  src={dataDetail.image}
+                  alt="detail-Mobil"
+                  style={{
+                    minWidth: 270,
+                    maxWidth: "100%",
+                    justifyContent: "center",
+                  }}
+                />
+                <h4>{dataDetail.name}</h4>
                 <div className="row">
                   <div className="col-sm-12 d-flex align-items-center">
                     <TeamOutlined className="me-1" /> 4 Orang
@@ -76,7 +117,9 @@ function CarDetail() {
                   </div>
                 </div>
 
-                <button className="btn-utama w-100">Lanjutkan Pembayaran</button>
+                <button className="btn-utama w-100">
+                  Lanjutkan Pembayaran
+                </button>
               </div>
             </div>
           </div>
@@ -85,6 +128,7 @@ function CarDetail() {
           <button className="btn-utama">Lanjutkan Pembayaran</button>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

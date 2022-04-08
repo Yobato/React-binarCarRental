@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchHome.css";
 
 // import { FaAngleDown, FaAngleUp } from "react-icons/fa";
@@ -12,8 +12,11 @@ import {
 import { Input, Select } from "antd";
 import { DatePicker, Space } from "antd";
 import axios from "axios";
+import CarDetail from "../pages/CarDetail";
+import { useParams, useNavigate } from "react-router-dom";
 
 function SearchHome() {
+  const { id } = useParams();
   const { Option } = Select;
 
   const [supir, setSupir] = useState("");
@@ -21,9 +24,10 @@ function SearchHome() {
   const [waktu, setWaktu] = useState("");
 
   const [dataList, setDataList] = useState([]);
+  const [dataDetail, setDataDetail] = useState({});
 
   const [showDetail, setShowDetail] = useState(false);
-  const [dataDetail, setDataDetail] = useState({});
+  // const [dataDetail, setDataDetail] = useState({});
 
   const handleData = async (e) => {
     setDataList([]);
@@ -40,17 +44,30 @@ function SearchHome() {
     }
   };
 
-  const handleDetail = async (id) => {
-    setShowDetail(true);
-    try {
-      const res = await axios(
-        `https://rent-cars-api.herokuapp.com/customer/car/${id}`
-      );
-      setDataDetail(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+  let navigate = useNavigate();
+
+  
+
+  const navigateDetail = (event) => {
+    const id = event.target.value;
+    navigate(`Search/${id}`);
   };
+
+  // useEffect(() => {
+  //   HandleDetail(id);
+  // });
+
+  // const handleDetail = async (id) => {
+  //   setShowDetail(true);
+  //   try {
+  //     const res = await axios(
+  //       `https://rent-cars-api.herokuapp.com/customer/car/${id}`
+  //     );
+  //     setDataDetail(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleChangeWaktu = (event) => {
     setWaktu(event.target.value);
@@ -143,12 +160,12 @@ function SearchHome() {
       </form>
       <div className="container sectionDataList">
         <div className="row d-flex">
-          {/* {showDetail ? (
+          {showDetail ? (
             <div>
-              ini datamobil
-              <h3>{dataDetail.name}</h3>
-              <h3>{dataDetail.category}</h3>
-              <h3>{dataDetail.price}</h3>
+              <CarDetail
+                gambar={dataDetail.image}
+                namaMobil={dataDetail.name}
+              />
             </div>
           ) : (
             dataList?.map((item) => {
@@ -185,9 +202,10 @@ function SearchHome() {
                       </p>
 
                       <button
-                        onClick={() => handleDetail(item.id)}
+                        onClick={navigateDetail}
                         type="button"
                         className="btn btn-success w-100"
+                        value={item.id}
                       >
                         Pilih Mobil
                       </button>
@@ -196,9 +214,9 @@ function SearchHome() {
                 </div>
               );
             })
-          )} */}
+          )}
 
-          {dataList?.map((item) => {
+          {/* {dataList?.map((item) => {
             return (
               <div className="col-lg-4 flex-row my-2">
                 <div className="card h-100" key={item.id}>
@@ -242,7 +260,7 @@ function SearchHome() {
                 </div>
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
     </>
