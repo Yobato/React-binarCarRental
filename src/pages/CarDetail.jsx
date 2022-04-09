@@ -56,13 +56,14 @@ function CarDetail() {
         <div className="Container mx-auto" style={{ maxWidth: "80%" }}>
           <div className="card">
             <div className="card-body">
-              <h6 class="card-title">Hasil Pencarianmu</h6>
+              <h6 class="card-title">Pencarianmu</h6>
               <div className="row align-items-center">
-                <div className="col-lg-10">
+                <div className="col-lg-12">
                   <div className="row">
                     <div className="col-lg-3">
                       <label for="selectSopir">Pilih Sopir</label>
                       <Select
+                        disabled
                         placeholder="Pilih Sopir"
                         style={{ minWidth: "100%", maxWidth: "100%" }}
                         id="selectSopir"
@@ -76,12 +77,13 @@ function CarDetail() {
                     <div className="col-lg-3">
                       <label for="selectDate">Pilih Tanggal</label>
                       <Space direction="vertical" id="selectDate">
-                        <DatePicker />
+                        <DatePicker disabled />
                       </Space>
                     </div>
                     <div className="col-lg-3">
                       <label for="selectWaktu">Waktu Jemput/Ambil</label>
                       <Select
+                        disabled
                         placeholder="Pilih Waktu"
                         style={{ minWidth: "100%", maxWidth: "100%" }}
                         id="selectWaktu"
@@ -99,6 +101,7 @@ function CarDetail() {
                         Jumlah Penumpang [Optional]
                       </label>
                       <Input
+                        disabled
                         id="inputPenumpang"
                         placeholder="Jumlah Penumpang"
                         suffix={<TeamOutlined style={{ color: "#cbcbcb" }} />}
@@ -106,14 +109,14 @@ function CarDetail() {
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-2">
+                {/* <div className="col-lg-2">
                   <button
                     className="buttonBiru w-100"
                     style={{ marginTop: 20 }}
                   >
                     Edit
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -69,7 +69,7 @@ function CarList() {
         <div className="Container mx-auto" style={{ maxWidth: "80%" }}>
           <div className="card">
             <div className="card-body">
-              <h6 class="card-title">Hasil Pencarianmu</h6>
+              <h6 class="card-title">Pencarianmu</h6>
               <div className="row align-items-center">
                 <div className="col-lg-10">
                   <div className="row">
