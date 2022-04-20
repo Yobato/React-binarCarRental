@@ -1,5 +1,9 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+// import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getCarList } from "../../redux/action/carListAction";
+
+// import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CarList.css";
 import {
@@ -11,7 +15,7 @@ import {
 
 import { Input, Select } from "antd";
 import { DatePicker, Space } from "antd";
-import Footer from "../components/Footer";
+import Footer from "../../components/Footer";
 
 // import { Select } from "antd";
 
@@ -19,23 +23,37 @@ function CarList() {
   const { Option } = Select;
   //   const { data } = useParams();
 
-  const [dataList, setDataList] = useState([]);
+  // const [dataList, setDataList] = useState([]);
 
-  const handleData = async () => {
-    // setDataList([]);
+  // const handleData = async () => {
+  //   // setDataList([]);
 
-    try {
-      const res = await axios(
-        "https://rent-cars-api.herokuapp.com/customer/car"
-      );
-      setDataList(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     const res = await axios(
+  //       "https://rent-cars-api.herokuapp.com/customer/car"
+  //     );
+  //     setDataList(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   handleData();
+  // }, []);
+
+  // const [name, setName] = React.useState();
+  // const [category, setCategory] = React.useState();
+  // const [price, setPrice] = React.useState();
+  // const [id, setId] = React.useState();
+  const dispatch = useDispatch();
+
+  const { isLoading: loadingCarList, data: carListData } = useSelector(
+    (state) => state.carList
+  );
 
   useEffect(() => {
-    handleData();
+    dispatch(getCarList());
   }, []);
 
   let navigate = useNavigate();
@@ -50,7 +68,7 @@ function CarList() {
     currency: "IDR",
   });
 
-  console.log(handleData());
+  // console.log(handleData());
   return (
     <div>
       <div
@@ -135,52 +153,54 @@ function CarList() {
 
       <div className="container sectionDataList">
         <div className="row d-flex">
-          {dataList?.map((item) => {
-            return (
-              <div className="col-lg-4 flex-row my-2">
-                <div className="card h-100" key={item.id}>
-                  <div className="card-body">
-                    <h5 className="card-title justify-content-center">
-                      <img
-                        src={item.image}
-                        alt="img-car"
-                        style={{
-                          minWidth: 270,
-                          maxWidth: "100%",
-                          justifyContent: "center",
-                        }}
-                      />
-                    </h5>
-                    <p>{item.name}</p>
-                    <h6>{formatter.format(item.price)}/hari</h6>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                    <p className="card-text">
-                      <TeamOutlined /> 4 Orang
-                    </p>
-                    <p className="card-text">
-                      <SettingOutlined /> Manual
-                    </p>
-                    <p className="card-text">
-                      <CalendarOutlined /> Tahun 2020
-                    </p>
+          {loadingCarList
+            ? "Loading"
+            : carListData?.map((item) => (
+                // return (
+                <div className="col-lg-4 flex-row my-2">
+                  <div className="card h-100" key={item.id}>
+                    <div className="card-body">
+                      <h5 className="card-title justify-content-center">
+                        <img
+                          src={item.image}
+                          alt="img-car"
+                          style={{
+                            minWidth: 270,
+                            maxWidth: "100%",
+                            justifyContent: "center",
+                          }}
+                        />
+                      </h5>
+                      <p>{item.name}</p>
+                      <h6>{formatter.format(item.price)}/hari</h6>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                      </p>
+                      <p className="card-text">
+                        <TeamOutlined /> 4 Orang
+                      </p>
+                      <p className="card-text">
+                        <SettingOutlined /> Manual
+                      </p>
+                      <p className="card-text">
+                        <CalendarOutlined /> Tahun 2020
+                      </p>
 
-                    <button
-                      onClick={navigateDetail}
-                      type="button"
-                      className="btn-utama w-100"
-                      value={item.id}
-                    >
-                      Pilih Mobil
-                    </button>
+                      <button
+                        onClick={navigateDetail}
+                        type="button"
+                        className="btn-utama w-100"
+                        value={item.id}
+                      >
+                        Pilih Mobil
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+                // );
+              ))}
         </div>
       </div>
       <Footer />

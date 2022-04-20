@@ -11,7 +11,7 @@ import axios from "axios";
 
 import { Input, Select } from "antd";
 import { DatePicker, Space } from "antd";
-import Footer from "../components/Footer";
+import Footer from "../../components/Footer";
 
 function CarDetail() {
   const { Option } = Select;
@@ -122,6 +122,7 @@ function CarDetail() {
           </div>
         </div>
       </div>
+
       <div className="container my-auto mx-auto" style={{ marginTop: "20rem" }}>
         <div className="row">
           <div className="col-lg-8">
