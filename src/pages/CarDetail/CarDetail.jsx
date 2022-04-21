@@ -7,32 +7,44 @@ import {
   CalendarOutlined,
 } from "@ant-design/icons";
 import "./CarDetail.css";
-import axios from "axios";
+// import axios from "axios";
 
 import { Input, Select } from "antd";
 import { DatePicker, Space } from "antd";
 import Footer from "../../components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { getCarDetail } from "../../redux/action/carDetailAction";
 
 function CarDetail() {
   const { Option } = Select;
-  const [dataDetail, setDataDetail] = useState({});
+  // const [dataDetail, setDataDetail] = useState({});
 
   const { id } = useParams();
 
-  const HandleDetail = async (id) => {
-    try {
-      const res = await axios(
-        `https://rent-cars-api.herokuapp.com/customer/car/${id}`
-      );
-      setDataDetail(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const HandleDetail = async (id) => {
+  //   try {
+  //     const res = await axios(
+  //       `https://rent-cars-api.herokuapp.com/customer/car/${id}`
+  //     );
+  //     setDataDetail(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   HandleDetail(id);
+  // });
+
+  const dispatch = useDispatch();
+
+  const { isLoading: loadingCarDetail, data: carDetailData } = useSelector(
+    (state) => state.carDetail
+  );
 
   useEffect(() => {
-    HandleDetail(id);
-  });
+    dispatch(getCarDetail(id));
+  }, []);
 
   var formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -175,7 +187,7 @@ function CarDetail() {
             <div className="card">
               <div className="card-body">
                 <img
-                  src={dataDetail.image}
+                  src={carDetailData.image}
                   alt="detail-Mobil"
                   style={{
                     minWidth: 270,
@@ -183,7 +195,7 @@ function CarDetail() {
                     justifyContent: "center",
                   }}
                 />
-                <h4>{dataDetail.name}</h4>
+                <h4>{carDetailData.name}</h4>
                 <div className="row">
                   <div className="col-sm-12 d-flex align-items-center">
                     <TeamOutlined className="me-1" /> 4 Orang
@@ -194,7 +206,7 @@ function CarDetail() {
                 <div className="row">
                   <div className="col-lg-12 d-flex justify-content-between">
                     <p>Total</p>
-                    <p>{formatter.format(dataDetail.price)}</p>
+                    <p>{formatter.format(carDetailData.price)}</p>
                   </div>
                 </div>
 

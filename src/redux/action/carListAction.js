@@ -11,13 +11,13 @@ export const getCarList = () => {
         })
         .then((response)=>{
             dispatch({
-                type: `${GET_CAR_LIST})_FULFILLED`,
+                type: `${GET_CAR_LIST}_FULFILLED`,
                 payload: response.data,
             });
         })
         .catch((error)=>{
             dispatch({
-                type: `${GET_CAR_LIST})_ERROR`,
+                type: `${GET_CAR_LIST}_ERROR`,
                 error: error.message,
             });
         });
