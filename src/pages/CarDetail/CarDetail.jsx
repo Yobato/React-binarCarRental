@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {
   ClockCircleOutlined,
@@ -17,24 +17,8 @@ import { getCarDetail } from "../../redux/action/carDetailAction";
 
 function CarDetail() {
   const { Option } = Select;
-  // const [dataDetail, setDataDetail] = useState({});
 
   const { id } = useParams();
-
-  // const HandleDetail = async (id) => {
-  //   try {
-  //     const res = await axios(
-  //       `https://rent-cars-api.herokuapp.com/customer/car/${id}`
-  //     );
-  //     setDataDetail(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   HandleDetail(id);
-  // });
 
   const dispatch = useDispatch();
 
@@ -121,14 +105,6 @@ function CarDetail() {
                     </div>
                   </div>
                 </div>
-                {/* <div className="col-lg-2">
-                  <button
-                    className="buttonBiru w-100"
-                    style={{ marginTop: 20 }}
-                  >
-                    Edit
-                  </button>
-                </div> */}
               </div>
             </div>
           </div>

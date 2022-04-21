@@ -17,35 +17,8 @@ import { Input, Select } from "antd";
 import { DatePicker, Space } from "antd";
 import Footer from "../../components/Footer";
 
-// import { Select } from "antd";
-
 function CarList() {
   const { Option } = Select;
-  //   const { data } = useParams();
-
-  // const [dataList, setDataList] = useState([]);
-
-  // const handleData = async () => {
-  //   // setDataList([]);
-
-  //   try {
-  //     const res = await axios(
-  //       "https://rent-cars-api.herokuapp.com/customer/car"
-  //     );
-  //     setDataList(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleData();
-  // }, []);
-
-  // const [name, setName] = React.useState();
-  // const [category, setCategory] = React.useState();
-  // const [price, setPrice] = React.useState();
-  // const [id, setId] = React.useState();
   const dispatch = useDispatch();
 
   const { isLoading: loadingCarList, data: carListData } = useSelector(

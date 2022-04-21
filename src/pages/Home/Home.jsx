@@ -28,9 +28,6 @@ function Home() {
                     kualitas terbaik dengan harga terjangkau. Selalu siap
                     melayani kebutuhanmu untuk sewa mobil selama 24 jam.
                   </p>
-                  {/* <button className="btn btn-utama mb-4 fw-bold">
-                    Mulai Sewa Mobil
-                  </button> */}
                 </div>
               </div>
             </div>
